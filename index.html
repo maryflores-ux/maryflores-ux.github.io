@@ -1,44 +1,133 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="utf-8" />
-  <title>My Portfolio —UMzi</title>
-  <meta name="viewport" content="width=device-width,initial-scale=1" />
-  <style>
-    body { font-family: system-ui, -apple-system, "Segoe UI", Roboto, sans-serif; padding: 32px; max-width:800px; margin:auto; }
-    header { text-align:center; margin-bottom:24px; }
-    img { max-width:150px; border-radius:999px; }
-    .card { padding:16px; border-radius:12px; box-shadow: 0 6px 18px rgba(0,0,0,0.06); margin-bottom:12px; }
-    a { color: inherit; text-decoration: underline; }
-  </style>
-</head>
-<body>
-  <header>
-    <img src="avatar.png" alt="Your photo or avatar" />
-    <h1>Your Name</h1>
-    <p>Student • Multimedia Arts • Aspiring Creative Director</p>
-  </header>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Your Name — Portfolio</title>
 
+<!-- Google Fonts -->
+<link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet">
+
+<style>
+  /* General styles */
+  body {
+    font-family: 'Roboto', sans-serif;
+    margin: 0;
+    padding: 0;
+    transition: background 0.3s, color 0.3s;
+  }
+
+  body.light { background: #ffffff; color: #000000; }
+  body.dark { background: #0d0d0d; color: #ffffff; }
+
+  a { color: inherit; text-decoration: none; transition: color 0.2s; }
+  a:hover { color: #ff9800; } /* orange links on hover */
+
+  header {
+    text-align: center;
+    padding: 60px 20px;
+    background: #0b3d91; /* navy blue header */
+    color: white;
+    transition: background 0.3s;
+  }
+  header.dark { background: #061f4a; } /* darker navy for dark mode */
+
+  header img {
+    width: 120px;
+    border-radius: 50%;
+    margin-bottom: 20px;
+    border: 4px solid #ff9800; /* orange border around avatar */
+  }
+
+  h1 { margin: 0 0 10px; font-size: 2.5em; color: #ff9800; } /* orange name */
+  p { margin: 0 0 20px; font-size: 1.2em; }
+
+  .container {
+    max-width: 900px;
+    margin: auto;
+    padding: 30px 20px;
+  }
+
+  .card {
+    background: #f5f5f5;
+    padding: 20px;
+    margin: 20px 0;
+    border-radius: 12px;
+    box-shadow: 0 6px 20px rgba(0,0,0,0.08);
+    transition: transform 0.3s, box-shadow 0.3s;
+  }
+  body.dark .card { background: #1e1e1e; }
+
+  .card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 12px 30px rgba(0,0,0,0.15);
+  }
+
+  .projects li { margin-bottom: 10px; }
+
+  button {
+    padding: 10px 20px;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    font-weight: bold;
+    transition: background 0.3s, color 0.3s;
+  }
+
+  button:hover { opacity: 0.85; }
+  .dark-mode-btn { background: #ff9800; color: #000; margin-top: 20px; } /* orange button */
+  body.dark .dark-mode-btn { background: #ff6f00; color: #fff; }
+
+  footer {
+    text-align: center;
+    padding: 30px 20px;
+    font-size: 0.9em;
+    color: #555;
+  }
+</style>
+</head>
+
+<body class="light">
+<header>
+  <img src="avatar.png" alt="Your Avatar">
+  <h1>Your Name</h1>
+  <p>Multimedia Arts Student | Aspiring Creative Director</p>
+  <button class="dark-mode-btn" onclick="toggleDarkMode()">Toggle Dark Mode</button>
+</header>
+
+<div class="container">
   <section class="card">
-    <h2>About me</h2>
-    <p>Short sentence about who you are and what you love to make.</p>
+    <h2>About Me</h2>
+    <p>Hello! I’m [Your Name], a multimedia arts student passionate about creating visual experiences and storytelling through design. I enjoy turning complex ideas into simple, engaging visuals.</p>
   </section>
 
   <section class="card">
     <h2>Projects</h2>
-    <ul>
-      <li><strong>Project One</strong> — one-line description. <a href="#">See more</a></li>
-      <li><strong>Project Two</strong> — one-line description.</li>
+    <ul class="projects">
+      <li><strong>Project One</strong> — Short description of what you did. <a href="#">See more</a></li>
+      <li><strong>Project Two</strong> — Short description. <a href="#">See more</a></li>
+      <li><strong>Project Three</strong> — Short description. <a href="#">See more</a></li>
     </ul>
   </section>
 
   <section class="card">
     <h2>Contact</h2>
     <p>Email: <a href="mailto:you@example.com">you@example.com</a></p>
+    <p>Instagram / Behance / LinkedIn: <a href="#">Your Links</a></p>
   </section>
+</div>
 
-  <footer style="text-align:center; margin-top:24px; color:#555;">
-    Made with ❤️ — Update this page anytime on GitHub
-  </footer>
+<footer>
+  Made with ❤️ by [Your Name] — Updated dynamically from GitHub
+</footer>
+
+<script>
+  function toggleDarkMode() {
+    document.body.classList.toggle('dark');
+    document.body.classList.toggle('light');
+    document.querySelector('header').classList.toggle('dark');
+  }
+</script>
 </body>
 </html>
+
