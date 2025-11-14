@@ -3,152 +3,132 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title> [UMzi] — Portfolio</title>
+<title>Your Name — Portfolio</title>
 
-<!-- Google Fonts -->
 <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet">
 
 <style>
-  /* General styles */
-  body {
-    font-family: 'Roboto', sans-serif;
-    margin: 0;
-    padding: 0;
-    transition: background 0.3s, color 0.3s;
-  }
+  body { font-family: 'Roboto', sans-serif; margin: 0; padding: 0; transition: background 0.3s, color 0.3s; }
+  body.light { background: #ffffff; color: #000; }
+  body.dark { background: #0d0d0d; color: #fff; }
 
-  body.light { background: #ffffff; color: #000000; }
-  body.dark { background: #0d0d0d; color: #ffffff; }
+  header { text-align: center; padding: 60px 20px; background: #0b3d91; color: white; transition: background 0.3s; }
+  header.dark { background: #061f4a; }
+  header img { width: 120px; border-radius: 50%; margin-bottom: 20px; border: 4px solid #ff9800; }
 
-  a { color: inherit; text-decoration: none; transition: color 0.2s; }
-  a:hover { color: #ff9800; } /* orange links on hover */
+  h1 { margin: 0 0 10px; font-size: 2.5em; color: #ff9800; }
+  h2 { margin-top: 0; color: #0b3d91; }
+  p { margin: 0 0 10px; font-size: 1.2em; }
 
-  header {
-    text-align: center;
-    padding: 60px 20px;
-    background: #0b3d91; /* navy blue header */
-    color: white;
-    transition: background 0.3s;
-  }
-  header.dark { background: #061f4a; } /* darker navy for dark mode */
-
-  header img {
-    width: 120px;
-    border-radius: 50%;
-    margin-bottom: 20px;
-    border: 4px solid #ff9800; /* orange border around avatar */
-  }
-
-  h1 { margin: 0 0 10px; font-size: 2.5em; color: #ff9800; } /* orange name */
-  p { margin: 0 0 20px; font-size: 1.2em; }
-
-  .container {
-    max-width: 900px;
-    margin: auto;
-    padding: 30px 20px;
-  }
-
-  .card {
-    background: #f5f5f5;
-    padding: 20px;
-    margin: 20px 0;
-    border-radius: 12px;
-    box-shadow: 0 6px 20px rgba(0,0,0,0.08);
-    transition: transform 0.3s, box-shadow 0.3s;
-  }
+  .container { max-width: 900px; margin: auto; padding: 30px 20px; }
+  .card { background: #f5f5f5; padding: 20px; margin: 20px 0; border-radius: 12px; box-shadow: 0 6px 20px rgba(0,0,0,0.08); transition: transform 0.3s, box-shadow 0.3s; cursor: pointer; }
   body.dark .card { background: #1e1e1e; }
+  .card:hover { transform: translateY(-5px); box-shadow: 0 12px 30px rgba(0,0,0,0.15); }
 
-  .card:hover {
-    transform: translateY(-5px);
-    box-shadow: 0 12px 30px rgba(0,0,0,0.15);
-  }
+  .popup { display: none; position: fixed; top: 50%; left: 50%; transform: translate(-50%, -50%); background: #fffbf0; padding: 30px; border-radius: 15px; box-shadow: 0 12px 30px rgba(0,0,0,0.3); z-index: 1000; max-width: 80%; }
+  .popup.dark { background: #1a1a1a; color: #fff; }
+  .popup h3 { margin-top: 0; color: #0b3d91; }
+  .popup button { margin-top: 20px; background: #ff9800; color: #000; border: none; padding: 10px 20px; border-radius: 8px; cursor: pointer; }
+  .overlay { display: none; position: fixed; top:0; left:0; width:100%; height:100%; background: rgba(0,0,0,0.6); z-index: 900; }
 
-  .projects li { margin-bottom: 10px; }
+  .dark-mode-btn { background: #ff9800; color: #000; margin-top: 20px; padding: 10px 20px; border: none; border-radius: 8px; cursor: pointer; }
 
-  button {
-    padding: 10px 20px;
-    border: none;
-    border-radius: 8px;
-    cursor: pointer;
-    font-weight: bold;
-    transition: background 0.3s, color 0.3s;
-  }
-
-  button:hover { opacity: 0.85; }
-  .dark-mode-btn { background: #ff9800; color: #000; margin-top: 20px; } /* orange button */
-  body.dark .dark-mode-btn { background: #ff6f00; color: #fff; }
-
-  footer {
-    text-align: center;
-    padding: 30px 20px;
-    font-size: 0.9em;
-    color: #555;
-  }
+  footer { text-align: center; padding: 30px 20px; font-size: 0.9em; color: #555; }
 </style>
 </head>
 
 <body class="light">
 <header>
   <img src="avatar.png" alt="Your Avatar">
-  <h1][UMzi]</h1>
+  <h1>Your Name</h1>
   <p>Multimedia Arts Student | Aspiring Creative Director</p>
   <button class="dark-mode-btn" onclick="toggleDarkMode()">Toggle Dark Mode</button>
 </header>
 
 <div class="container">
-  <section class="card">
-    <h2>About Me</h2>
-    <p>Hello! I’m Umzi, a multimedia arts student passionate about creating visual experiences and storytelling through design. I enjoy turning complex ideas into simple, engaging visuals.My work reflects curiosity, transfroming ideas into meaning design. I aspire to become a Crestive Director, creating impactful visuals that inspire and communicate with pursue.
-My Website represent my own creative gallery for   showcase myself.</p>
-  </section>
 
   <!-- Personal Background -->
-  <section class="card">
+  <section class="card" onclick="openPopup('personalPopup')">
     <h2>Personal Background</h2>
-    <ul class="personal">
-      <li>Born and raised in Quezon City, Philippines</li>
-      <li>Passionate about Making Arts (Music,Painting,and Drawing), Seventeen 💎 </li>
-      <li>Languages: [list languages]</li>
-      <li>Other personal facts that define you</li>
-    </ul>
+    <p>Click to view details</p>
   </section>
 
   <!-- Educational Background -->
-  <section class="card">
+  <section class="card" onclick="openPopup('educationPopup')">
     <h2>Educational Background</h2>
-    <ul class="education">
-      <li><strong>School / University Name</strong> — Degree / Program (Year)</li>
-      <li><strong>Achievements:</strong> Award, Honor, Scholarship</li>
-      <li><strong>Recognitions:</strong> Any special recognition or competitions won</li>
-    </ul>
+    <p>Click to view achievements, awards, and recognitions</p>
   </section>
-  
+
+  <!-- About Me -->
+  <section class="card">
+    <h2>About Me</h2>
+    <p>Hello! I’m [Your Name], a multimedia arts student passionate about creating visual experiences and storytelling through design. I enjoy turning complex ideas into simple, engaging visuals.</p>
+  </section>
+
+  <!-- Projects -->
   <section class="card">
     <h2>Projects</h2>
-    <ul class="projects">
-      <li><strong>Project One</strong> — Short description of what you did. <a href="#">See more</a></li>
+    <ul>
+      <li><strong>Project One</strong> — Short description. <a href="#">See more</a></li>
       <li><strong>Project Two</strong> — Short description. <a href="#">See more</a></li>
       <li><strong>Project Three</strong> — Short description. <a href="#">See more</a></li>
     </ul>
   </section>
 
+  <!-- Contact -->
   <section class="card">
     <h2>Contact</h2>
-    <p>Email: <a href="mary.flores@ciit.edu.ph">you@example.com</a></p>
-    <p>Instagram: <a href="@umziverse">Your Links</a></p>
+    <p>Email: <a href="mailto:you@example.com">you@example.com</a></p>
+    <p>Instagram / Behance / LinkedIn: <a href="#">Your Links</a></p>
   </section>
+
+</div>
+
+<!-- Popups -->
+<div class="overlay" id="overlay" onclick="closePopup()"></div>
+
+<div class="popup" id="personalPopup">
+  <h3>Personal Background</h3>
+  <ul>
+    <li>Born and raised in [City, Country]</li>
+    <li>Passionate about [hobbies/interests]</li>
+    <li>Languages: [list languages]</li>
+    <li>Other personal facts</li>
+  </ul>
+  <button onclick="closePopup()">Close</button>
+</div>
+
+<div class="popup" id="educationPopup">
+  <h3>Educational Background</h3>
+  <ul>
+    <li><strong>School / University Name</strong> — Degree / Program (Year)</li>
+    <li><strong>Achievements:</strong> Award, Honor, Scholarship</li>
+    <li><strong>Recognitions:</strong> Competitions, special recognition</li>
+  </ul>
+  <button onclick="closePopup()">Close</button>
 </div>
 
 <footer>
-  Made with by [UMzi] — Updated dynamically from GitHub
+  Made with ❤️ by [Your Name] — Updated dynamically from GitHub
 </footer>
 
 <script>
-  function toggleDarkMode() {
-    document.body.classList.toggle('dark');
-    document.body.classList.toggle('light');
-    document.querySelector('header').classList.toggle('dark');
-  }
+function toggleDarkMode() {
+  document.body.classList.toggle('dark');
+  document.body.classList.toggle('light');
+  document.querySelector('header').classList.toggle('dark');
+  document.querySelectorAll('.popup').forEach(p => p.classList.toggle('dark'));
+}
+
+function openPopup(id) {
+  document.getElementById('overlay').style.display = 'block';
+  document.getElementById(id).style.display = 'block';
+}
+
+function closePopup() {
+  document.getElementById('overlay').style.display = 'none';
+  document.querySelectorAll('.popup').forEach(p => p.style.display = 'none');
+}
 </script>
 </body>
 </html>
