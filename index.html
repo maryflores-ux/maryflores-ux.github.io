@@ -33,6 +33,13 @@
   .dark-mode-btn { background: #ff9800; color: #000; margin-top: 20px; padding: 10px 20px; border: none; border-radius: 8px; cursor: pointer; }
 
   footer { text-align: center; padding: 30px 20px; font-size: 0.9em; color: #555; }
+     <script>
+function toggleDarkMode() {
+  document.body.classList.toggle('dark');
+  document.body.classList.toggle('light');
+  document.querySelector('header').classList.toggle('dark');
+  document.querySelectorAll('.popup').forEach(p => p.classList.toggle('dark'));
+  </script>
 </style>
 </head>
 <body>
@@ -60,15 +67,7 @@
   <section class="Goals">
     <h1>Mission</h1>
     <p>I aim to use my skills in multimedia arts and graphic design to connect people through my works. And use this platform to grow myself more confidence.</p>
-  <script>
-function toggleDarkMode() {
-  document.body.classList.toggle('dark');
-  document.body.classList.toggle('light');
-  document.querySelector('header').classList.toggle('dark');
-  document.querySelectorAll('.popup').forEach(p => p.classList.toggle('dark'));
-  </script>
-
-      <div class="social-icons">
+    <div class="social-icons">
         <a href="#"><i class=fa-brands fa-instagram></a>
       </div>
       <a href="#" class="btn">Hire me</a>
