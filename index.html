@@ -1,80 +1,251 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet">
-  <title>Portfolio Website</title>
-</head>
-  <style>
-  body { font-family: 'Roboto', sans-serif; margin: 0; padding: 0; transition: background 0.3s, color 0.3s; }
-  body.light { background: #ffffff; color: #000; }
-  body.dark { background: #0d0d0d; color: #fff; }
+// src/components/PortfolioApp.jsx
+import React, { useState } from 'react';
+import {
+  BarChart, Bar, XAxis, YAxis, Tooltip, ResponsiveContainer, CartesianGrid, Legend
+} from 'recharts';
 
-  header { text-align: center; padding: 60px 20px; background: #0b3d91; color: white; transition: background 0.3s; }
-  header.dark { background: #061f4a; }
-  header img { width: 120px; border-radius: 50%; margin-bottom: 20px; border: 4px solid #ff9800; }
+export default function PortfolioApp() {
+  const [dark, setDark] = useState(false);
 
-  h1 { margin: 0 0 10px; font-size: 2.5em; color: #ff9800; }
-  h2 { margin-top: 0; color: #0b3d91; }
-  p { margin: 0 0 10px; font-size: 1.2em; }
+  const goals = [
+    { horizon: '1 Year', items: ['Complete portfolio', 'Freelance 3 projects', 'Learn React advanced'] },
+    { horizon: '3 Years', items: ['Senior designer role', 'Lead small team', 'Exhibit work'] },
+    { horizon: '5 Years', items: ['Creative Director role', 'Start a studio', 'Teach workshops'] },
+    { horizon: '10 Years', items: ['Run an agency', 'Author a book', 'Mentor others'] },
+  ];
 
-  .container { max-width: 900px; margin: auto; padding: 30px 20px; }
-  .card { background: #f5f5f5; padding: 20px; margin: 20px 0; border-radius: 12px; box-shadow: 0 6px 20px rgba(0,0,0,0.08); transition: transform 0.3s, box-shadow 0.3s; cursor: pointer; }
-  body.dark .card { background: #1e1e1e; }
-  .card:hover { transform: translateY(-5px); box-shadow: 0 12px 30px rgba(0,0,0,0.15); }
+  const skills = {
+    personal: ['Adaptability', 'Curiosity', 'Resilience'],
+    interpersonal: ['Communication', 'Collaboration', 'Conflict resolution'],
+    professional: ['Adobe Suite', 'Figma', 'React', 'Research & Writing'],
+  };
 
-  .popup { display: none; position: fixed; top: 50%; left: 50%; transform: translate(-50%, -50%); background: #fffbf0; padding: 30px; border-radius: 15px; box-shadow: 0 12px 30px rgba(0,0,0,0.3); z-index: 1000; max-width: 80%; }
-  .popup.dark { background: #1a1a1a; color: #fff; }
-  .popup h3 { margin-top: 0; color: #0b3d91; }
-  .popup button { margin-top: 20px; background: #ff9800; color: #000; border: none; padding: 10px 20px; border-radius: 8px; cursor: pointer; }
-  .overlay { display: none; position: fixed; top:0; left:0; width:100%; height:100%; background: rgba(0,0,0,0.6); z-index: 900; }
+  const projects = [
+    { id: 1, title: 'Visual Essay: Borrowed Light', desc: 'Zine exploring inspiration and loneliness', link: '#', img: '' },
+    { id: 2, title: 'Website Redesign', desc: 'University project — UX case study', link: '#', img: '' },
+    { id: 3, title: 'Short Film Poster Series', desc: 'Graphic design exploration', link: '#', img: '' },
+  ];
 
-  .dark-mode-btn { background: #ff9800; color: #000; margin-top: 20px; padding: 10px 20px; border: none; border-radius: 8px; cursor: pointer; }
+  const growthPlan = [
+    { step: 1, title: 'Assess', desc: 'Inventory strengths and weaknesses.' },
+    { step: 2, title: 'Plan', desc: 'Set SMART goals for the next 12 months.' },
+    { step: 3, title: 'Act', desc: 'Take monthly micro-projects to build portfolio.' },
+    { step: 4, title: 'Review', desc: 'Quarterly reflection & iteration.' },
+  ];
 
-  footer { text-align: center; padding: 30px 20px; font-size: 0.9em; color: #555; }
-     <script>
-function toggleDarkMode() {
-  document.body.classList.toggle('dark');
-  document.body.classList.toggle('light');
-  document.querySelector('header').classList.toggle('dark');
-  document.querySelectorAll('.popup').forEach(p => p.classList.toggle('dark'));
-  </script>
-</style>
-</head>
-<body>
-  <header>
-    <a href="#"class="logo">UMzi</a>
+  const lifeMap = [
+    { area: 'Health', goals: ['Exercise 3x/wk', 'Sleep 7-8h'] },
+    { area: 'Career', goals: ['Build portfolio', 'Network monthly'] },
+    { area: 'Growth', goals: ['Read 12 books/yr', 'Take course'] },
+  ];
 
+  const okrs = [
+    {
+      objective: 'Grow as a multidisciplinary designer',
+      keyResults: ['Ship 6 portfolio projects', 'Get 3 client testimonials', 'Publish 4 case studies'],
+    },
+  ];
 
-    <nav>
-      <a href="#" class="active"> Home</a>
-      <a href="#" > Services</a>
-      <a href="#" > Skills</a>
-      <a href="#" > Background</a>
-      <a href="#" > Goals</a>
-      <a href="#" > Contact</a>
-    </nav>
-  </header>
-  <section class="home" >
-    <div class="home-img">
-      <img src="img.png" alt="">
+  const statData = [
+    { name: 'Creativity', strength: 85, weakness: 15 },
+    { name: 'Technical', strength: 60, weakness: 40 },
+    { name: 'Communication', strength: 70, weakness: 30 },
+    { name: 'Time Management', strength: 55, weakness: 45 },
+  ];
+
+  return (
+    <div className={`${dark ? 'dark bg-slate-900 text-white' : 'bg-gray-50 text-slate-900'} min-h-screen transition-colors duration-300`}>
+      <header className="bg-white dark:bg-slate-800 dark:text-white shadow">
+        <div className="mx-auto max-w-6xl px-6 py-6 flex items-center justify-between">
+          <div>
+            <h1 className="text-2xl font-bold">Your Name — Portfolio & Self-Development</h1>
+            <p className="text-sm text-slate-600 dark:text-slate-300">A living portfolio: goals, skills, projects, and growth plans.</p>
+          </div>
+          <nav className="space-x-4 text-sm text-slate-700 dark:text-slate-200 flex items-center">
+            <a href="#goals" className="hover:underline">Goals</a>
+            <a href="#skills" className="hover:underline">Skills</a>
+            <a href="#projects" className="hover:underline">Projects</a>
+            <a href="#growth" className="hover:underline">Growth</a>
+            <a href="#stats" className="hover:underline">Stats</a>
+            <button
+              onClick={() => setDark(!dark)}
+              className="ml-4 px-3 py-1 rounded-full border text-sm hover:bg-gray-100 dark:hover:bg-slate-700 transition"
+            >
+              {dark ? 'Light Mode' : 'Dark Mode'}
+            </button>
+          </nav>
+        </div>
+      </header>
+
+      <main className="mx-auto max-w-6xl px-6 py-10 space-y-12">
+        {/* Goals Section */}
+        <section id="goals" className="bg-white dark:bg-slate-800 p-6 rounded-2xl shadow-sm">
+          <h2 className="text-xl font-semibold mb-4">Personal & Professional Goals</h2>
+          <p className="text-sm text-slate-600 dark:text-slate-300 mb-4">Timeline-driven plans (1, 3, 5, 10 years) — actionable and measurable.</p>
+          <div className="grid grid-cols-1 md:grid-cols-4 gap-4">
+            {goals.map((g) => (
+              <div key={g.horizon} className="border dark:border-slate-700 rounded-lg p-4">
+                <h3 className="font-medium">{g.horizon}</h3>
+                <ul className="mt-2 list-disc list-inside text-sm text-slate-700 dark:text-slate-300">
+                  {g.items.map((it, idx) => (
+                    <li key={idx}>{it}</li>
+                  ))}
+                </ul>
+              </div>
+            ))}
+          </div>
+        </section>
+
+        {/* Skills Inventory */}
+        <section id="skills" className="bg-white dark:bg-slate-800 p-6 rounded-2xl shadow-sm">
+          <h2 className="text-xl font-semibold mb-4">Skills Inventory</h2>
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+            <div>
+              <h3 className="font-medium">Personal</h3>
+              <ul className="mt-2 list-disc list-inside text-sm text-slate-700 dark:text-slate-300">
+                {skills.personal.map((s) => <li key={s}>{s}</li>)}
+              </ul>
+            </div>
+            <div>
+              <h3 className="font-medium">Interpersonal</h3>
+              <ul className="mt-2 list-disc list-inside text-sm text-slate-700 dark:text-slate-300">
+                {skills.interpersonal.map((s) => <li key={s}>{s}</li>)}
+              </ul>
+            </div>
+            <div>
+              <h3 className="font-medium">Professional</h3>
+              <ul className="mt-2 list-disc list-inside text-sm text-slate-700 dark:text-slate-300">
+                {skills.professional.map((s) => <li key={s}>{s}</li>)}
+              </ul>
+            </div>
+          </div>
+        </section>
+
+        {/* Projects */}
+        <section id="projects" className="bg-white dark:bg-slate-800 p-6 rounded-2xl shadow-sm">
+          <h2 className="text-xl font-semibold mb-4">Sample Works & Projects</h2>
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+            {projects.map((p) => (
+              <article key={p.id} className="border dark:border-slate-700 rounded-lg p-4">
+                <div className="h-40 bg-gray-100 dark:bg-slate-700 rounded-md mb-3 flex items-center justify-center text-sm text-slate-400">Image placeholder</div>
+                <h3 className="font-medium">{p.title}</h3>
+                <p className="text-sm text-slate-600 dark:text-slate-300">{p.desc}</p>
+                <a href={p.link} className="text-sm mt-2 inline-block hover:underline">View project</a>
+              </article>
+            ))}
+          </div>
+        </section>
+
+        {/* Growth Plan & Life Map */}
+        <section id="growth" className="bg-white dark:bg-slate-800 p-6 rounded-2xl shadow-sm">
+          <h2 className="text-xl font-semibold mb-4">Personal Growth Plan & Life Map</h2>
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+            <div>
+              <h3 className="font-medium">Growth Plan (Steps)</h3>
+              <ol className="mt-2 list-decimal list-inside text-sm text-slate-700 dark:text-slate-300">
+                {growthPlan.map((g) => (
+                  <li key={g.step} className="mb-2">
+                    <strong>{g.title}:</strong> {g.desc}
+                  </li>
+                ))}
+              </ol>
+            </div>
+            <div>
+              <h3 className="font-medium">Life Map (Core areas)</h3>
+              <ul className="mt-2 list-disc list-inside text-sm text-slate-700 dark:text-slate-300">
+                {lifeMap.map((l) => (
+                  <li key={l.area} className="mb-2">
+                    <strong>{l.area}</strong>
+                    <div className="text-xs mt-1">{l.goals.join(' • ')}</div>
+                  </li>
+                ))}
+              </ul>
+            </div>
+          </div>
+
+          <div className="mt-6">
+            <h3 className="font-medium">Goal Frameworks</h3>
+            <div className="mt-3 text-sm text-slate-700 dark:text-slate-300 space-y-2">
+              <div>
+                <strong>SMART</strong>: Specific, Measurable, Achievable, Relevant, Time-bound — transform each horizon into SMART statements.
+              </div>
+              <div>
+                <strong>OKRs</strong>: Example objective shown below with measurable Key Results.
+                <div className="mt-2 border rounded p-3 bg-gray-50 dark:bg-slate-700">
+                  <strong>Objective:</strong> {okrs[0].objective}
+                  <ul className="list-disc list-inside text-sm mt-2">
+                    {okrs[0].keyResults.map((kr, i) => <li key={i}>{kr}</li>)}
+                  </ul>
+                </div>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        {/* Other topics: Conflict, Help-Seeking, Time Management */}
+        <section id="other" className="bg-white dark:bg-slate-800 p-6 rounded-2xl shadow-sm">
+          <h2 className="text-xl font-semibold mb-4">Other Reflections & Practices</h2>
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-6 text-sm text-slate-700 dark:text-slate-300">
+            <div>
+              <h4 className="font-medium">Conflict Management</h4>
+              <p className="mt-2">I use active listening, identify interests vs positions, and seek collaborative solutions. Document conflicts and lessons learned in each group project.</p>
+            </div>
+            <div>
+              <h4 className="font-medium">Help-Seeking Behaviors</h4>
+              <p className="mt-2">Practice asking for feedback early, breaking problems into specific requests, and listing support resources (mentors, peers, online communities).</p>
+            </div>
+            <div>
+              <h4 className="font-medium">Time Management</h4>
+              <p className="mt-2">Use time-blocking, prioritize deep work, and run weekly retrospectives to adjust commitments.</p>
+            </div>
+          </div>
+        </section>
+
+        {/* Reflection */}
+        <section id="reflection" className="bg-white dark:bg-slate-800 p-6 rounded-2xl shadow-sm">
+          <h2 className="text-xl font-semibold mb-4">Reflection on Self-Development</h2>
+          <p className="text-sm text-slate-700 dark:text-slate-300">Summarize key lessons from IR001 and portfolio-building. Consider a short script for verbal presentation and a longer written reflection for the site. Example:</p>
+          <blockquote className="mt-3 border-l-4 pl-4 italic text-sm text-slate-600 dark:text-slate-300">"I learned to turn small, intentional experiments into demonstrable growth. Documenting failures was as valuable as showing successes."</blockquote>
+        </section>
+
+        {/* Statistical Framework: Strength & Weakness Chart */}
+        <section id="stats" className="bg-white dark:bg-slate-800 p-6 rounded-2xl shadow-sm">
+          <h2 className="text-xl font-semibold mb-4">Statistical Framework — Strengths & Weaknesses</h2>
+          <p className="text-sm text-slate-600 dark:text-slate-300 mb-4">Visualized: higher values indicate relative strength (0-100).</p>
+          <div style={{ width: '100%', height: 300 }}>
+            <ResponsiveContainer>
+              <BarChart data={statData} margin={{ top: 10, right: 30, left: 0, bottom: 5 }}>
+                <CartesianGrid strokeDasharray="3 3" />
+                <XAxis dataKey="name" />
+                <YAxis />
+                <Tooltip />
+                <Legend />
+                <Bar dataKey="strength" stackId="a" />
+                <Bar dataKey="weakness" stackId="a" />
+              </BarChart>
+            </ResponsiveContainer>
+          </div>
+
+          <div className="mt-4 text-xs text-slate-600 dark:text-slate-300">Notes: This is a simple stacked view. For rigorous assessment, consider scoring rubrics, peer feedback, and longitudinal tracking.</div>
+        </section>
+
+        {/* Call to action / Footer */}
+        <section className="bg-white dark:bg-slate-800 p-6 rounded-2xl shadow-sm text-center">
+          <h3 className="font-semibold">Next steps</h3>
+          <p className="text-sm text-slate-600 dark:text-slate-300">Replace placeholder content with your real projects, update timelines, and attach downloadable artifacts (PDFs, images, videos). Export as a static site for GitHub Pages.</p>
+          <div className="mt-4 flex gap-3 justify-center">
+            <a href="#projects" className="px-4 py-2 rounded-full border">Edit Projects</a>
+            <a href="#goals" className="px-4 py-2 rounded-full bg-slate-900 text-white">Edit Goals</a>
+          </div>
+        </section>
+
+      </main>
+
+      <footer className="bg-slate-900 text-white py-6 mt-10">
+        <div className="mx-auto max-w-6xl px-6 text-sm text-center">© {new Date().getFullYear()} Your Name — Built for IR001 portfolio</div>
+      </footer>
     </div>
-    <div class="home-content">
-      <h1>Hi, It's <span>UMzi</span></h1>
-      <h3 class="typing-text"> I'm Flores, Mary Lhen Jim B. <span></span></h3>
-      <p>I aspire to become a Creative Director, creating impactful visuals that inspire and communicate with pursue.</p>
-  <section class="Goals">
-    <h1>Mission</h1>
-    <p>I aim to use my skills in multimedia arts and graphic design to connect people through my works. And use this platform to grow myself more confidence.</p>
-    <div class="social-icons">
-        <a href="#"><i class=fa-brands fa-instagram></a>
-      </div>
-      <a href="#" class="btn">Hire me</a>
-    </div>
-     
-
-  </section>
-</body>
+  );
+}
 
  
